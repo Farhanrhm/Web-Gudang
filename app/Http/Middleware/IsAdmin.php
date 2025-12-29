@@ -9,14 +9,32 @@ use Symfony\Component\HttpFoundation\Response;
 
 class IsAdmin
 {
+    /**
+     * Menangani request masuk dan memastikan hanya user dengan role ADMIN
+     * yang dapat mengakses route tertentu.
+     *
+     * Alur kerja:
+     * 1. Mengecek apakah user sudah login
+     * 2. Mengecek apakah role user adalah "admin"
+     * 3. Jika memenuhi, request diteruskan
+     * 4. Jika tidak, akses ditolak (HTTP 403)
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \Closure  $next
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function handle(Request $request, Closure $next): Response
     {
-        // CEK: Apakah dia Admin?
-        if (Auth::check() && Auth::user()->role == 'admin') {
-            return $next($request); // Silakan masuk bos!
+        // =======================
+        // Cek autentikasi & role
+        // =======================
+        if (Auth::check() && Auth::user()->role === 'admin') {
+            return $next($request);
         }
 
-        // Jika Karyawan coba-coba masuk, tolak!
+        // =======================
+        // Akses ditolak
+        // =======================
         abort(403, 'AKSES DITOLAK: Halaman ini khusus Admin.');
     }
 }

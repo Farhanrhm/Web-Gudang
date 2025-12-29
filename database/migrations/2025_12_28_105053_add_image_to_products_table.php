@@ -9,7 +9,6 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('products', function (Blueprint $table) {
-            // INI YANG BENAR: Tambah kolom IMAGE, bukan category_id
             $table->string('image')->nullable()->after('name');
         });
     }

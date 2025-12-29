@@ -14,14 +14,10 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->enum('type', ['in', 'out']);
             $table->integer('quantity');
-            
-            // --- KOLOM BARU YANG DIBUTUHKAN ---
-            $table->decimal('price', 15, 2);       // Harga satuan saat transaksi
-            $table->decimal('total_price', 15, 2); // Total harga (qty * price)
+            $table->decimal('price', 15, 2);       
+            $table->decimal('total_price', 15, 2); 
             $table->date('transaction_date');
-            $table->text('description')->nullable(); // Ini yang menyebabkan error tadi
-            // ----------------------------------
-
+            $table->text('description')->nullable(); 
             $table->timestamps();
         });
     }

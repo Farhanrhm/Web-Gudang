@@ -129,7 +129,6 @@
     </div>
 </div>
 
-{{-- Script --}}
 <script>
     const productSelect = document.getElementById('productSelect');
     const priceInput    = document.getElementById('priceInput');

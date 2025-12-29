@@ -13,7 +13,7 @@ class UserSeeder extends Seeder
         // 1. Akun ADMIN
         User::create([
             'name' => 'Owner Gudang',
-            'email' => 'admin@gudang.com', // <--- Cek Email
+            'email' => 'admin@gudang.com', 
             'password' => Hash::make('admin123'), // <--- Passwordnya admin123
             'role' => 'admin', 
         ]);

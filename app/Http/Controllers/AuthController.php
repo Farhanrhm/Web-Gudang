@@ -2,14 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ActivityLog;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Models\ActivityLog;
 
 class AuthController extends Controller
 {
     /**
-     * Tampilkan halaman login
+     * Menampilkan halaman login.
+     *
+     * @return \Illuminate\View\View
      */
     public function showLogin()
     {
@@ -17,31 +19,47 @@ class AuthController extends Controller
     }
 
     /**
-     * Proses login
+     * Memproses autentikasi pengguna.
+     *
+     * - Melakukan validasi input email & password
+     * - Melakukan login menggunakan Auth::attempt()
+     * - Regenerasi session untuk keamanan
+     * - Mencatat aktivitas login ke tabel activity_logs
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function login(Request $request)
     {
-        // Validasi input
+        // =======================
+        // Validasi Input Login
+        // =======================
         $credentials = $request->validate([
             'email'    => ['required', 'email'],
             'password' => ['required'],
         ]);
 
-        // Coba login
+        // =======================
+        // Proses Autentikasi
+        // =======================
         if (Auth::attempt($credentials)) {
-            // Regenerasi session (security)
+            // Regenerasi session (mencegah session fixation)
             $request->session()->regenerate();
 
-            // 🔹 Catat aktivitas login
+            // =======================
+            // Catat Aktivitas Login
+            // =======================
             ActivityLog::record(
                 'login',
-                'Pengguna melakukan login ke sistem'
+                'Pengguna berhasil login ke sistem'
             );
 
             return redirect()->intended('/dashboard');
         }
 
-        // Jika gagal login
+        // =======================
+        // Login Gagal
+        // =======================
         return back()
             ->withErrors([
                 'email' => 'Email atau password salah.',
@@ -50,11 +68,20 @@ class AuthController extends Controller
     }
 
     /**
-     * Proses logout
+     * Memproses logout pengguna.
+     *
+     * - Mencatat aktivitas logout
+     * - Menghapus autentikasi user
+     * - Menghancurkan session & token
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function logout(Request $request)
     {
-        // 🔹 Catat aktivitas logout (pastikan user masih login)
+        // =======================
+        // Catat Aktivitas Logout
+        // =======================
         if (Auth::check()) {
             ActivityLog::record(
                 'logout',
@@ -62,6 +89,9 @@ class AuthController extends Controller
             );
         }
 
+        // =======================
+        // Proses Logout
+        // =======================
         Auth::logout();
 
         // Hancurkan session

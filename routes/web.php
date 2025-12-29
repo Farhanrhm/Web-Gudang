@@ -44,7 +44,6 @@ Route::middleware('auth')->group(function () {
     |--------------------------------------------------------------------------
     */
 
-    // WAJIB: index dulu (sebelum create/store)
     Route::get('transactions', [TransactionController::class, 'index'])
         ->name('transactions.index');
 

@@ -33,7 +33,6 @@
                         <td>{{ $product->category->name ?? '-' }}</td>
                         <td class="text-muted small">{{ $product->deleted_at->format('d M Y H:i') }}</td>
                         <td class="text-center">
-                            {{-- Kita bisa tambah fitur Restore nanti --}}
                             <span class="badge bg-secondary opacity-75">Hanya Baca</span>
                         </td>
                     </tr>

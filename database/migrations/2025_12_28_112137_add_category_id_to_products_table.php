@@ -12,8 +12,6 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('products', function (Blueprint $table) {
-            // Tambahkan kolom category_id setelah kolom ID
-            // nullOnDelete artinya: Jika kategori dihapus, barangnya TIDAK ikut terhapus (hanya kategorinya jadi kosong)
             $table->foreignId('category_id')->nullable()->after('id')->constrained('categories')->nullOnDelete();
         });
     }

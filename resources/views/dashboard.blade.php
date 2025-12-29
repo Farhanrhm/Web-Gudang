@@ -222,17 +222,16 @@
 
         // 2. Fungsi Update Chart Tanpa Reload (AJAX)
         function updateChart(range, btnElement) {
-            // Ubah tampilan tombol aktif (Visual saja)
             document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
             btnElement.classList.add('active');
 
             // Panggil data baru dari server (Fetch API)
             fetch("{{ route('dashboard') }}?chart_range=" + range, {
                 headers: {
-                    "X-Requested-With": "XMLHttpRequest" // Tanda bahwa ini request AJAX
+                    "X-Requested-With": "XMLHttpRequest" 
                 }
             })
-            .then(response => response.json()) // Ubah respon jadi JSON
+            .then(response => response.json()) 
             .then(data => {
                 // Masukkan data baru ke grafik
                 transactionChart.data.labels = data.dates;
