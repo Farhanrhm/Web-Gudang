@@ -86,7 +86,7 @@
 
                     <div class="mb-3">
                         <label class="form-label fw-bold small">Deskripsi</label>
-                        <textarea name="description" class="form-control bg-light" rows="5" placeholder="Tambahkan keterangan detail produk...">{{ old('description') }}</textarea>
+                        <textarea name="description" class="form-control bg-light" rows="3" placeholder="Tambahkan keterangan detail produk...">{{ old('description') }}</textarea>
                     </div>
                 </div>
             </div>

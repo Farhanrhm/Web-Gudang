@@ -2,19 +2,30 @@
 
 namespace Database\Seeders;
 
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
 {
-    /**
-     * Seed the application's database.
-     */
     public function run(): void
     {
-        // Panggil UserSeeder agar akun Admin & Karyawan dibuat
-        $this->call([
-            UserSeeder::class,
-        ]);
+        // Gunakan firstOrCreate agar tidak error jika dijalankan ulang
+        User::firstOrCreate(
+            ['email' => 'admin@gudang.com'], // Cek berdasarkan email
+            [
+                'name' => 'Administrator',
+                'password' => bcrypt('123456'),
+                'role' => 'admin',
+            ]
+        );
+
+        User::firstOrCreate(
+            ['email' => 'petugas@gudang.com'],
+            [
+                'name' => 'Petugas Gudang',
+                'password' => bcrypt('123456'),
+                'role' => 'staff',
+            ]
+        );
     }
 }

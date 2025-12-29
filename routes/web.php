@@ -93,5 +93,6 @@ Route::middleware('auth')->group(function () {
     */
     Route::middleware('admin')->group(function () {
         Route::resource('users', UserController::class);
+        Route::get('/activity-logs', [App\Http\Controllers\ActivityLogController::class, 'index'])->name('activity-logs.index');
     });
 });

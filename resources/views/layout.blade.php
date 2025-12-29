@@ -98,6 +98,13 @@
                             <i class="bi bi-people-fill me-1"></i>Manajemen User
                         </a>
                     </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('activity-logs.*') ? 'active fw-bold' : '' }}"
+                           href="{{ route('activity-logs.index') }}">
+                            <i class="bi bi-clock-history me-1"></i>Activity Log
+                        </a>
+                    </li>
                 @endif
             </ul>
 
@@ -154,5 +161,14 @@
 </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+    // Inisialisasi Bootstrap tooltip untuk elemen dengan atribut data-bs-toggle="tooltip"
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl);
+    });
+</script>
+
 </body>
 </html>

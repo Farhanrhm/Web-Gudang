@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Transaction;
 use App\Models\Product;
+use App\Models\ActivityLog;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -73,6 +74,9 @@ class TransactionController extends Controller
                 'transaction_date' => $request->transaction_date,
                 'description'      => $request->description,
             ]);
+
+            // Catat aktivitas (activity log)
+            ActivityLog::record('transaction', 'Mencatat transaksi ' . $request->type . ' untuk ' . $product->name . ' (' . $request->quantity . ' ' . $product->unit . ')');
         });
 
         return redirect()

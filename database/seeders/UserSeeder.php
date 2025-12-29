@@ -12,7 +12,7 @@ class UserSeeder extends Seeder
     {
         // 1. Akun ADMIN
         User::create([
-            'name' => 'Big Boss',
+            'name' => 'Owner Gudang',
             'email' => 'admin@gudang.com', // <--- Cek Email
             'password' => Hash::make('admin123'), // <--- Passwordnya admin123
             'role' => 'admin', 
