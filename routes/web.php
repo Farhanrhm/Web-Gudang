@@ -18,8 +18,8 @@ use App\Http\Controllers\{
 */
 Route::middleware('guest')->group(function () {
 
-    Route::get('/', fn () => redirect()->route('login'));
-    Route::post('/', fn () => redirect()->route('login'));
+    Route::get('/', fn() => redirect()->route('login'));
+    Route::post('/', fn() => redirect()->route('login'));
 
     Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
     Route::post('/login', [AuthController::class, 'login']);
@@ -66,6 +66,12 @@ Route::middleware('auth')->group(function () {
 
     Route::get('products/trash', [ProductController::class, 'trash'])
         ->name('products.trash');
+
+    Route::post('products/{id}/restore', [ProductController::class, 'restore'])
+        ->name('products.restore');
+
+    Route::delete('products/{id}/kill', [ProductController::class, 'kill'])
+        ->name('products.kill');
 
     Route::resource('products', ProductController::class);
 
